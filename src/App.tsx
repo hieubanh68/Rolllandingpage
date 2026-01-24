@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Header } from './components/Header';
-import { HeroNew } from './components/HeroNew';
-import { DealTicker } from './components/DealTicker';
-import { WinWinBlueprint } from './components/WinWinBlueprint';
-import { NoAwkwardness } from './components/NoAwkwardness';
-import { GroovyBitesNew } from './components/GroovyBitesNew';
+import { HeroDiner } from './components/HeroDiner';
+import { SocialProof } from './components/SocialProof';
+import { HowItWorksDiner } from './components/HowItWorksDiner';
+import { FrictionlessPayment } from './components/FrictionlessPayment';
+import { DownloadCTA } from './components/DownloadCTA';
 import { TourMerchFooter } from './components/TourMerchFooter';
-import { FloatingMascot } from './components/FloatingMascot';
-import { PartnerSection } from './components/PartnerSection';
+import { PartnerSectionNew } from './components/PartnerSectionNew';
 import { Language } from './translations/translations';
 
 export default function App() {
@@ -25,18 +24,16 @@ export default function App() {
       
       {currentPage === 'diners' ? (
         <>
-          <HeroNew language={language} />
-          <DealTicker language={language} />
-          <WinWinBlueprint language={language} />
-          <FloatingMascot />
-          <NoAwkwardness language={language} />
-          <FloatingMascot />
-          <GroovyBitesNew language={language} />
+          <HeroDiner language={language} />
+          <SocialProof language={language} />
+          <HowItWorksDiner language={language} />
+          <FrictionlessPayment language={language} />
+          <DownloadCTA language={language} />
           <TourMerchFooter language={language} />
         </>
       ) : (
         <>
-          <PartnerSection language={language} />
+          <PartnerSectionNew language={language} />
           <TourMerchFooter language={language} />
         </>
       )}

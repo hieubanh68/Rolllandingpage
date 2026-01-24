@@ -14,6 +14,7 @@ export interface Translations {
     subtitle: string;
     mainHeading1: string;
     mainHeading2: string;
+    mainHeading3: string;
     description: string;
     downloadAppStore: string;
     downloadGooglePlay: string;
@@ -141,6 +142,7 @@ export const translations: Record<Language, Translations> = {
       subtitle: 'RESTAURANT DEALS',
       mainHeading1: 'ROLL IN.',
       mainHeading2: 'DIG IN. SAVE BIG.',
+      mainHeading3: 'DISCOVER YOUR NEXT FAVORITE.',
       description: 'Discover exclusive restaurant deals in your area. Save money while exploring the best dining experiences.',
       downloadAppStore: 'App Store',
       downloadGooglePlay: 'Google Play',
@@ -286,6 +288,7 @@ export const translations: Record<Language, Translations> = {
       subtitle: 'ƯU ĐÃI NHÀ HÀNG',
       mainHeading1: 'VÀO ĂN.',
       mainHeading2: 'ĂN NGON. GIẢM SỐC.',
+      mainHeading3: 'KHÁM PHÁT NHÀ HÀNG YÊU THÍCH TIẾP THEO.',
       description: 'Khám phá các ưu đãi độc quyền từ nhà hàng xung quanh bạn. Tiết kiệm chi phí khi trải nghiệm những bữa ăn tuyệt vời nhất.',
       downloadAppStore: 'App Store',
       downloadGooglePlay: 'Google Play',

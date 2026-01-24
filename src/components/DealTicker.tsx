@@ -106,34 +106,43 @@ export function DealTicker({ language }: DealTickerProps) {
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
 
-            {/* Deal Badges - Top Left - Combined Design (Max 2) */}
+            {/* Deal Badges - Top Left - New Style with Lightning Bolt */}
             <div className="absolute top-4 left-4 space-y-2.5 z-10">
               {restaurant.deals.slice(0, 2).map((deal, dealIndex) => (
                 <div 
                   key={dealIndex}
-                  className="bg-[#FFFEF6] border-2 border-[#EF8E4C] rounded-full shadow-lg hover:shadow-xl transition-shadow"
+                  className={`${
+                    dealIndex === 0 
+                      ? 'bg-[#FCE482]' 
+                      : 'bg-[#FFFEF6]'
+                  } border-[3px] border-[#2D2D2D] rounded-3xl shadow-lg hover:shadow-xl transition-all hover:scale-105`}
+                  style={{
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                  }}
                 >
-                  <div className="px-4 py-2.5 flex flex-col gap-1">
-                    {/* Main offer info */}
-                    <div 
-                      className="font-black text-[#2D2D2D] flex items-center gap-2"
-                      style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}
-                    >
-                      <span className="text-lg">{deal.percent}</span>
-                      <span className="text-sm opacity-60">{language === 'en' ? 'OFF' : 'GIẢM'}</span>
-                      <span className="text-xs opacity-40">•</span>
-                      <span className="text-sm">{deal.type}</span>
+                  <div className="px-4 py-3 flex items-center gap-3">
+                    {/* Lightning Bolt Icon */}
+                    <div className="text-2xl flex-shrink-0">
+                      ⚡
                     </div>
                     
-                    {/* Time info */}
-                    <div 
-                      className="text-xs font-bold text-[#EF8E4C] flex items-center gap-1"
-                      style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}
-                    >
-                      <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      {deal.time}
+                    {/* Deal Info - Stacked Vertically */}
+                    <div className="flex flex-col gap-0.5">
+                      {/* Discount Amount */}
+                      <div 
+                        className="font-black text-[#2D2D2D] text-base leading-tight"
+                        style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}
+                      >
+                        {deal.percent} {language === 'en' ? 'OFF' : 'GIẢM'}
+                      </div>
+                      
+                      {/* Time Range */}
+                      <div 
+                        className="text-sm font-bold text-[#2D2D2D]/80 leading-tight"
+                        style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}
+                      >
+                        {deal.time}
+                      </div>
                     </div>
                   </div>
                 </div>
