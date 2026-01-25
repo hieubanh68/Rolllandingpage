@@ -1,14 +1,40 @@
 import React from 'react';
 import { AlertTriangle, X, TrendingDown, Fish } from 'lucide-react';
 import { Language } from '../translations/translations';
+import { motion, useInView } from 'motion/react';
 
 interface PainAgitationProps {
   language: Language;
 }
 
 export function PainAgitation({ language }: PainAgitationProps) {
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+    }
+  };
+
+  const timeSlotVariants = {
+    hidden: { opacity: 0, x: -30 },
+    visible: (custom: number) => ({
+      opacity: 1,
+      x: 0,
+      transition: {
+        delay: custom * 0.1,
+        duration: 0.5,
+        ease: [0.22, 1, 0.36, 1]
+      }
+    })
+  };
+
   return (
-    <div className="py-20 md:py-32 px-6 bg-white relative overflow-hidden">
+    <div ref={ref} className="py-20 md:py-32 px-6 bg-white relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 pointer-events-none opacity-5">
         <div className="absolute top-20 left-20 w-64 h-64 bg-red-500 rounded-full blur-3xl"></div>
@@ -16,7 +42,12 @@ export function PainAgitation({ language }: PainAgitationProps) {
 
       <div className="max-w-5xl mx-auto relative z-10">
         {/* Main headline */}
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
           <div className="inline-flex items-center gap-3 mb-6">
             <Fish className="w-10 h-10 text-[#FCE482]" />
             <AlertTriangle className="w-10 h-10 text-red-500 animate-pulse" />
@@ -24,9 +55,9 @@ export function PainAgitation({ language }: PainAgitationProps) {
           
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
             {language === 'en' ? (
-              <>Your Tables Are Perishable.<br />Like <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FCE482] to-[#F9DB4A]">Fresh Fish</span>.</>
+              <>Empty Tables Are Lost Revenue.<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FCE482] to-[#F9DB4A]">Time-Sensitive Inventory</span>.</>
             ) : (
-              <>Bàn Của Bạn Có Hạn Sử Dụng.<br />Như <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FCE482] to-[#F9DB4A]">Cá Tươi</span>.</>
+              <>Bàn Trống Là Mất Doanh Thu.<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FCE482] to-[#F9DB4A]">Tài Sản Có Thời Hạn</span>.</>
             )}
           </h2>
 
@@ -35,12 +66,19 @@ export function PainAgitation({ language }: PainAgitationProps) {
               ? 'Every hour a table sits empty, that potential revenue is gone forever. Yet, you still pay the rent, electricity, and staff for that hour.'
               : 'Mỗi giờ một bàn để trống, doanh thu tiềm năng đó mất mãi mãi. Nhưng bạn vẫn phải trả tiền thuê, điện và nhân viên cho giờ đó.'}
           </p>
-        </div>
+        </motion.div>
 
         {/* Comparison Cards */}
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           {/* Traditional Restaurant Day */}
-          <div className="bg-gradient-to-br from-red-50 to-white rounded-3xl p-8 border-4 border-red-200 relative overflow-hidden">
+          <motion.div 
+            className="bg-gradient-to-br from-red-50 to-white rounded-3xl p-8 border-4 border-red-200 relative overflow-hidden"
+            variants={cardVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            transition={{ delay: 0.2 }}
+            whileHover={{ scale: 1.02, y: -5 }}
+          >
             <div className="absolute top-4 right-4">
               <X className="w-12 h-12 text-red-500" strokeWidth={4} />
             </div>
@@ -105,10 +143,27 @@ export function PainAgitation({ language }: PainAgitationProps) {
                 {language === 'en' ? 'per day' : 'mỗi ngày'}
               </div>
             </div>
-          </div>
+
+            {/* Payout timing */}
+            <div className="mt-4 p-3 bg-yellow-50 rounded-xl border-2 border-yellow-300 flex items-center justify-between">
+              <span className="text-sm font-black text-yellow-700" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
+                {language === 'en' ? 'Payout:' : 'Thanh Toán:'}
+              </span>
+              <span className="text-sm font-black text-yellow-700" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
+                {language === 'en' ? 'Weekly/Monthly' : 'Hàng Tuần/Tháng'}
+              </span>
+            </div>
+          </motion.div>
 
           {/* ROLL Day */}
-          <div className="bg-gradient-to-br from-green-50 to-white rounded-3xl p-8 border-4 border-[#4ADE80] relative overflow-hidden">
+          <motion.div 
+            className="bg-gradient-to-br from-green-50 to-white rounded-3xl p-8 border-4 border-[#4ADE80] relative overflow-hidden"
+            variants={cardVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            transition={{ delay: 0.4 }}
+            whileHover={{ scale: 1.02, y: -5 }}
+          >
             <div className="absolute top-4 right-4">
               <div className="w-12 h-12 bg-gradient-to-br from-[#4ADE80] to-[#22C55E] rounded-full flex items-center justify-center text-white font-black text-2xl">
                 ✓
@@ -174,11 +229,30 @@ export function PainAgitation({ language }: PainAgitationProps) {
                 {language === 'en' ? 'net profit per day' : 'lợi nhuận ròng/ngày'}
               </div>
             </div>
-          </div>
+
+            {/* Payout timing - Instant */}
+            <div className="mt-4 p-3 bg-green-100 rounded-xl border-2 border-[#4ADE80] flex items-center justify-between">
+              <span className="text-sm font-black text-[#22C55E]" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
+                {language === 'en' ? 'Payout:' : 'Thanh Toán:'}
+              </span>
+              <div className="flex items-center gap-2">
+                <span className="text-base">⚡</span>
+                <span className="text-sm font-black text-[#22C55E]" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
+                  {language === 'en' ? 'Instant (A2A)' : 'Ngay Lập Tức (A2A)'}
+                </span>
+              </div>
+            </div>
+          </motion.div>
         </div>
 
         {/* Bottom CTA box */}
-        <div className="bg-gradient-to-r from-[#2D2D2D] to-[#1a1a1a] text-white rounded-3xl p-8 md:p-12 text-center">
+        <motion.div 
+          className="bg-gradient-to-r from-[#2D2D2D] to-[#1a1a1a] text-white rounded-3xl p-8 md:p-12 text-center"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.6 }}
+          whileHover={{ scale: 1.02 }}
+        >
           <h3 className="text-3xl md:text-4xl font-black mb-4" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
             {language === 'en' 
               ? 'ROLL Turns Dead Time Into Active Revenue'
@@ -189,7 +263,7 @@ export function PainAgitation({ language }: PainAgitationProps) {
               ? 'Your rent, electricity, and staff costs are fixed. Every table filled during off-peak hours goes straight to your bottom line.'
               : 'Chi phí thuê, điện và nhân viên của bạn là cố định. Mỗi bàn lấp đầy trong giờ thấp điểm đều đi thẳng vào lợi nhuận ròng.'}
           </p>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

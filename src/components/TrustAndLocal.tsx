@@ -13,13 +13,13 @@ export function TrustAndLocal({ language }: TrustAndLocalProps) {
         {/* Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 mb-6">
-            <Zap className="w-10 h-10 text-[#EF8E4C]" fill="#EF8E4C" />
+            <Zap className="w-10 h-10 text-[#FCE482]" fill="#FCE482" />
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
             {language === 'en' ? (
-              <>Built for the Speed of<br /><span className="text-[#EF8E4C]">Vietnam's F&B</span></>
+              <>Built for the Speed of<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FCE482] to-[#F9DB4A]">Vietnam's F&B</span></>
             ) : (
-              <>Xây Dựng Cho Tốc Độ<br /><span className="text-[#EF8E4C]">F&B Việt Nam</span></>
+              <>Xây Dựng Cho Tốc Độ<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FCE482] to-[#F9DB4A]">F&B Việt Nam</span></>
             )}
           </h2>
         </div>
@@ -28,8 +28,8 @@ export function TrustAndLocal({ language }: TrustAndLocalProps) {
         <div className="grid md:grid-cols-3 gap-8 mb-20">
           {/* Payment Integration */}
           <div className="bg-gradient-to-br from-[#FFFEF6] to-white rounded-3xl p-8 shadow-lg border-2 border-[#FFFEF6] hover:shadow-xl transition-all">
-            <div className="w-16 h-16 bg-gradient-to-br from-[#EF8E4C] to-[#FF6B35] rounded-2xl flex items-center justify-center mb-6 shadow-lg">
-              <Shield className="w-8 h-8 text-white" strokeWidth={3} />
+            <div className="w-16 h-16 bg-gradient-to-br from-[#FCE482] to-[#FFD93D] rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+              <Shield className="w-8 h-8 text-[#2D2D2D]" strokeWidth={3} />
             </div>
             <h3 className="text-xl font-black mb-4" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
               {language === 'en' ? 'Trusted Payment Methods' : 'Phương Thức Thanh Toán Tin Cậy'}
@@ -72,13 +72,13 @@ export function TrustAndLocal({ language }: TrustAndLocalProps) {
             </p>
             
             <div className="space-y-3">
-              <div className="bg-gradient-to-r from-[#EF8E4C] to-[#FF6B35] text-white rounded-xl p-4 text-center">
+              <div className="bg-gradient-to-r from-[#FCE482] to-[#FFD93D] text-[#2D2D2D] rounded-xl p-4 text-center">
                 <div className="text-2xl font-black mb-1" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
                   {language === 'en' ? 'District 1' : 'Quận 1'}
                 </div>
                 <div className="text-xs opacity-80" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>HCMC</div>
               </div>
-              <div className="bg-gradient-to-r from-[#FCE482] to-[#FFD93D] text-[#2D2D2D] rounded-xl p-4 text-center">
+              <div className="bg-gradient-to-r from-[#FBDA60] to-[#F2DA75] text-[#2D2D2D] rounded-xl p-4 text-center">
                 <div className="text-2xl font-black mb-1" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
                   {language === 'en' ? 'District 3' : 'Quận 3'}
                 </div>
@@ -114,7 +114,7 @@ export function TrustAndLocal({ language }: TrustAndLocalProps) {
                 <span className="text-sm font-black" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
                   {language === 'en' ? 'Active Users' : 'Người Dùng'}
                 </span>
-                <span className="text-xl font-black text-[#EF8E4C]" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
+                <span className="text-xl font-black text-[#FCE482]" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
                   50K+
                 </span>
               </div>
@@ -122,7 +122,7 @@ export function TrustAndLocal({ language }: TrustAndLocalProps) {
                 <span className="text-sm font-black" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
                   {language === 'en' ? 'Partners' : 'Đối Tác'}
                 </span>
-                <span className="text-xl font-black text-[#EF8E4C]" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
+                <span className="text-xl font-black text-[#FCE482]" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
                   200+
                 </span>
               </div>
@@ -133,7 +133,7 @@ export function TrustAndLocal({ language }: TrustAndLocalProps) {
         {/* Early Adopter Testimonial */}
         <div className="bg-gradient-to-br from-[#2D2D2D] to-[#1a1a1a] rounded-3xl p-8 md:p-12 relative overflow-hidden">
           {/* Background decoration */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-[#EF8E4C] opacity-10 rounded-full blur-3xl"></div>
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#FCE482] opacity-10 rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#FCE482] opacity-10 rounded-full blur-3xl"></div>
           
           <div className="relative z-10">
@@ -161,7 +161,7 @@ export function TrustAndLocal({ language }: TrustAndLocalProps) {
                 
                 <div className="flex items-center gap-4">
                   {/* Avatar placeholder */}
-                  <div className="w-16 h-16 bg-gradient-to-br from-[#EF8E4C] to-[#FF6B35] rounded-full flex items-center justify-center text-white text-2xl font-black">
+                  <div className="w-16 h-16 bg-gradient-to-br from-[#FCE482] to-[#FFD93D] rounded-full flex items-center justify-center text-[#2D2D2D] text-2xl font-black">
                     A
                   </div>
                   <div>
@@ -194,7 +194,7 @@ export function TrustAndLocal({ language }: TrustAndLocalProps) {
                     </div>
                   </div>
                   <div className="bg-white rounded-lg p-3 text-center shadow-md">
-                    <div className="text-2xl font-black text-[#EF8E4C]" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
+                    <div className="text-2xl font-black text-[#FCE482]" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
                       2-4 PM
                     </div>
                     <div className="text-xs opacity-60" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>

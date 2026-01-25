@@ -1,11 +1,48 @@
 import React from 'react';
 import { ArrowRight, Clock, TrendingUp, Zap } from 'lucide-react';
 import { Language } from '../translations/translations';
+import { motion } from 'motion/react';
 
 interface PartnerHeroProps {
   language: Language;
   onCalculatorClick: () => void;
 }
+
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.15
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1]
+    }
+  }
+};
+
+const statsVariants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: [0.22, 1, 0.36, 1]
+    }
+  }
+};
 
 export function PartnerHero({ language, onCalculatorClick }: PartnerHeroProps) {
   return (
@@ -20,17 +57,21 @@ export function PartnerHero({ language, onCalculatorClick }: PartnerHeroProps) {
       <div className="max-w-7xl mx-auto px-6 py-12 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left - Content */}
-          <div>
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#FCE482] to-[#F9DB4A] px-6 py-3 rounded-full shadow-lg mb-6">
+            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 bg-gradient-to-r from-[#FCE482] to-[#F9DB4A] px-6 py-3 rounded-full shadow-lg mb-6">
               <TrendingUp className="w-5 h-5 text-[#2D2D2D]" strokeWidth={3} />
               <span className="text-sm font-black text-[#2D2D2D] tracking-wide" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
                 {language === 'en' ? 'FOR RESTAURANT OWNERS' : 'DÀNH CHO CHỦ NHÀ HÀNG'}
               </span>
-            </div>
+            </motion.div>
 
             {/* Headline - Aggressive & Direct */}
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-tight mb-6" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
+            <motion.h1 variants={itemVariants} className="text-5xl md:text-6xl lg:text-7xl font-black leading-tight mb-6" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
               {language === 'en' ? (
                 <>
                   Stop Paying Rent<br />
@@ -42,10 +83,10 @@ export function PartnerHero({ language, onCalculatorClick }: PartnerHeroProps) {
                   Cho <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FCE482] to-[#F9DB4A]">Bàn Trống</span>
                 </>
               )}
-            </h1>
+            </motion.h1>
             
             {/* Subheadline - The "How" and "Why" */}
-            <p className="text-xl md:text-2xl leading-relaxed text-[#2D2D2D] mb-8" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
+            <motion.p variants={itemVariants} className="text-xl md:text-2xl leading-relaxed text-[#2D2D2D] mb-8" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
               {language === 'en' ? (
                 <>
                   ROLL fills your restaurant during <span className="font-black text-transparent bg-clip-text bg-gradient-to-r from-[#FCE482] to-[#F9DB4A]">off-peak times (2PM–5PM)</span>. 
@@ -59,51 +100,74 @@ export function PartnerHero({ language, onCalculatorClick }: PartnerHeroProps) {
                   <span className="font-black text-[#4ADE80]"> lên đến 23%</span>.
                 </>
               )}
-            </p>
+            </motion.p>
 
             {/* Primary CTA - Interactive Hook */}
-            <button 
+            <motion.button 
+              variants={itemVariants}
               onClick={onCalculatorClick}
               className="w-full md:w-auto bg-gradient-to-r from-[#FCE482] to-[#F9DB4A] text-[#2D2D2D] px-12 py-6 rounded-2xl text-xl md:text-2xl font-black shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 group mb-6"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.98 }}
             >
               <span className="flex items-center justify-center gap-3" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
                 {language === 'en' ? 'Calculate Your Potential Revenue' : 'Tính Doanh Thu Tiềm Năng'}
                 <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
               </span>
-            </button>
+            </motion.button>
 
             {/* Trust Badge */}
-            <p className="text-sm opacity-60" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
+            <motion.p variants={itemVariants} className="text-sm opacity-60" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
               {language === 'en' 
                 ? '✓ Zero upfront cost  •  ✓ Simple commission only  •  ✓ Full control'
                 : '✓ Không phí trả trước  •  ✓ Chỉ hoa hồng đơn giản  •  ✓ Kiểm soát hoàn toàn'}
-            </p>
+            </motion.p>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-4 mt-12">
-              <div className="text-center p-6 bg-white rounded-2xl shadow-lg border-2 border-[#FFFEF6] hover:shadow-xl transition-shadow">
+            <motion.div 
+              className="grid grid-cols-3 gap-4 mt-12"
+              variants={containerVariants}
+            >
+              <motion.div 
+                variants={statsVariants} 
+                className="text-center p-6 bg-white rounded-2xl shadow-lg border-2 border-[#FFFEF6] hover:shadow-xl transition-shadow"
+                whileHover={{ scale: 1.05, y: -5 }}
+              >
                 <div className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#FCE482] to-[#F9DB4A] mb-2" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>200+</div>
                 <div className="text-sm opacity-70 font-black" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
                   {language === 'en' ? 'Partners' : 'Đối tác'}
                 </div>
-              </div>
-              <div className="text-center p-6 bg-white rounded-2xl shadow-lg border-2 border-[#FFFEF6] hover:shadow-xl transition-shadow">
+              </motion.div>
+              <motion.div 
+                variants={statsVariants} 
+                className="text-center p-6 bg-white rounded-2xl shadow-lg border-2 border-[#FFFEF6] hover:shadow-xl transition-shadow"
+                whileHover={{ scale: 1.05, y: -5 }}
+              >
                 <div className="text-4xl font-black text-[#4ADE80] mb-2" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>+23%</div>
                 <div className="text-sm opacity-70 font-black" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
                   {language === 'en' ? 'Profit' : 'Lợi nhuận'}
                 </div>
-              </div>
-              <div className="text-center p-6 bg-white rounded-2xl shadow-lg border-2 border-[#FFFEF6] hover:shadow-xl transition-shadow">
+              </motion.div>
+              <motion.div 
+                variants={statsVariants} 
+                className="text-center p-6 bg-white rounded-2xl shadow-lg border-2 border-[#FFFEF6] hover:shadow-xl transition-shadow"
+                whileHover={{ scale: 1.05, y: -5 }}
+              >
                 <div className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#FCE482] to-[#F9DB4A] mb-2" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>50K+</div>
                 <div className="text-sm opacity-70 font-black" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
                   {language === 'en' ? 'Diners' : 'Thực khách'}
                 </div>
-              </div>
-            </div>
-          </div>
+              </motion.div>
+            </motion.div>
+          </motion.div>
 
           {/* Right - Visual (Split Screen Graphic) */}
-          <div className="relative">
+          <motion.div 
+            className="relative"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+          >
             {/* Main card showing before/after */}
             <div className="bg-white rounded-3xl shadow-2xl p-8 border-4 border-[#FCE482] relative">
               {/* Clock animation indicator */}
@@ -190,7 +254,7 @@ export function PartnerHero({ language, onCalculatorClick }: PartnerHeroProps) {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

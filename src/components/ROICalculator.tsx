@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Calculator, TrendingUp, DollarSign } from 'lucide-react';
 import { Language } from '../translations/translations';
+import { motion, useInView } from 'motion/react';
 
 interface ROICalculatorProps {
   language: Language;
@@ -10,6 +11,8 @@ export function ROICalculator({ language }: ROICalculatorProps) {
   const [emptyTables, setEmptyTables] = useState(5);
   const [avgSpend, setAvgSpend] = useState(200000);
   const [daysOpen, setDaysOpen] = useState(26);
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   // Calculate potential monthly revenue
   // Assuming 3-hour off-peak period daily
@@ -27,7 +30,7 @@ export function ROICalculator({ language }: ROICalculatorProps) {
   };
 
   return (
-    <div className="py-20 md:py-32 px-6 bg-gradient-to-br from-[#FFFEF6] to-white relative overflow-hidden">
+    <div ref={ref} className="py-20 md:py-32 px-6 bg-gradient-to-br from-[#FFFEF6] to-white relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 pointer-events-none opacity-5">
         <div className="absolute top-20 right-20 w-64 h-64 bg-[#FCE482] rounded-full blur-3xl"></div>
@@ -35,7 +38,12 @@ export function ROICalculator({ language }: ROICalculatorProps) {
       </div>
 
       <div className="max-w-5xl mx-auto relative z-10">
-        <div className="text-center mb-12">
+        <motion.div 
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
           <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#FCE482] to-[#F9DB4A] px-6 py-3 rounded-full mb-6 shadow-lg">
             <Calculator className="w-5 h-5 text-[#2D2D2D]" />
             <span className="text-sm font-black text-[#2D2D2D] tracking-wide" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
@@ -56,10 +64,15 @@ export function ROICalculator({ language }: ROICalculatorProps) {
               ? 'Your tables are perishable. Like fresh fish. Every hour they sit empty, that revenue is gone forever.'
               : 'Bàn của bạn có hạn sử dụng. Giống như cá tươi. Mỗi giờ để trống, doanh thu đó mất mãi mãi.'}
           </p>
-        </div>
+        </motion.div>
 
         {/* Calculator Card */}
-        <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border-4 border-[#FCE482]">
+        <motion.div 
+          className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border-4 border-[#FCE482]"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+        >
           {/* Sliders Section */}
           <div className="space-y-8 mb-8">
             {/* Slider 1: Empty Tables */}
@@ -223,7 +236,7 @@ export function ROICalculator({ language }: ROICalculatorProps) {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Bottom explanation */}
         <div className="mt-8 text-center">

@@ -1,157 +1,272 @@
 import React from 'react';
-import { Download, Smartphone, Sparkles, Star, Zap } from 'lucide-react';
+import { Download, Smartphone, Sparkles, Star, Zap, CheckCircle, MapPin, Utensils, MessageSquare, Mail, Send } from 'lucide-react';
 import { Language } from '../translations/translations';
+import { motion, useInView } from 'motion/react';
 
 interface DownloadCTAProps {
   language: Language;
 }
 
 export function DownloadCTA({ language }: DownloadCTAProps) {
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [formData, setFormData] = React.useState({
+    restaurantName: '',
+    location: '',
+    cuisineType: '',
+    notes: '',
+    email: ''
+  });
+  const [isSubmitted, setIsSubmitted] = React.useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Here you would typically send the data to your backend
+    console.log('Form submitted:', formData);
+    setIsSubmitted(true);
+    setTimeout(() => {
+      setIsSubmitted(false);
+      setFormData({
+        restaurantName: '',
+        location: '',
+        cuisineType: '',
+        notes: '',
+        email: ''
+      });
+    }, 3000);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
   return (
-    <div className="py-20 md:py-32 px-6 bg-gradient-to-br from-[#F9DB4A] via-[#FCE482] to-[#FFD93D] relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 pointer-events-none">
-        <Star className="absolute top-20 left-[10%] w-20 h-20 text-[#EF8E4C] opacity-20 animate-pulse" fill="#EF8E4C" />
-        <Star className="absolute bottom-20 right-[15%] w-16 h-16 text-[#EF8E4C] opacity-20 animate-pulse" fill="#EF8E4C" />
-        <Sparkles className="absolute top-1/2 left-[20%] w-16 h-16 text-white opacity-20" />
-        <Zap className="absolute top-[30%] right-[25%] w-14 h-14 text-[#EF8E4C] opacity-20 animate-pulse" fill="#EF8E4C" />
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#EF8E4C] opacity-10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-white opacity-20 rounded-full blur-3xl"></div>
+    <div ref={ref} className="py-24 md:py-32 px-6 bg-[#FFFEF6] relative overflow-hidden">
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 2px 2px, #2D2D2D 1px, transparent 0)`,
+          backgroundSize: '40px 40px'
+        }}></div>
       </div>
 
-      <div className="max-w-5xl mx-auto text-center relative z-10">
-        {/* Animated icon */}
-        <div className="inline-flex items-center justify-center mb-8">
-          <div className="relative">
-            <div className="w-24 h-24 bg-white rounded-3xl flex items-center justify-center shadow-2xl animate-pulse">
-              <Smartphone className="w-12 h-12 text-[#EF8E4C]" strokeWidth={3} />
-            </div>
-            <div className="absolute -top-3 -right-3 w-12 h-12 bg-gradient-to-br from-[#EF8E4C] to-[#FF6B35] rounded-full flex items-center justify-center shadow-xl">
-              <Download className="w-6 h-6 text-white" strokeWidth={3} />
-            </div>
-          </div>
-        </div>
+      {/* Decorative elements - subtle */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-20 right-[10%] w-[300px] h-[300px] bg-gradient-to-br from-[#FCE482] to-[#F9DB4A] opacity-10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-[10%] w-[400px] h-[400px] bg-gradient-to-br from-[#B8D5A0] to-[#738C6B] opacity-10 rounded-full blur-3xl"></div>
+      </div>
 
-        {/* Main headline */}
-        <h2 className="text-4xl md:text-5xl lg:text-7xl font-black mb-6 text-[#2D2D2D] leading-tight" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
-          {language === 'en' ? (
-            <>
-              Your Next Great Meal<br />
-              is <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#EF8E4C] to-[#FF6B35]">30% Off</span>
-            </>
-          ) : (
-            <>
-              Bữa Ăn Tuyệt Vời Tiếp Theo<br />
-              Giảm <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#EF8E4C] to-[#FF6B35]">30%</span>
-            </>
-          )}
-        </h2>
-
-        {/* Subheadline */}
-        <p className="text-2xl md:text-3xl font-black mb-12 text-[#2D2D2D]" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
-          {language === 'en' ? 'What Are You Waiting For?' : 'Bạn Đang Chờ Gì?'}
-        </p>
-
-        {/* Value props */}
-        <div className="grid md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto">
-          <div className="bg-white rounded-2xl p-6 shadow-xl border-2 border-white hover:shadow-2xl transition-all">
-            <div className="text-4xl mb-3">🍜</div>
-            <div className="font-black text-lg text-[#2D2D2D]" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
-              {language === 'en' ? '200+ Restaurants' : '200+ Nhà Hàng'}
+      <div className="max-w-6xl mx-auto relative z-10">
+        <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+          {/* Left - Form Header */}
+          <motion.div 
+            className="text-left"
+            initial={{ opacity: 0, x: -50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {/* Eyebrow */}
+            <div className="inline-flex items-center gap-2 bg-white border-2 border-[#FCE482] rounded-full px-4 py-2 mb-6">
+              <Sparkles className="w-4 h-4 text-[#FCE482]" fill="#FCE482" />
+              <span className="text-sm font-black text-[#2D2D2D]" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
+                {language === 'en' ? 'Help Us Grow' : 'Giúp Chúng Tôi Phát Triển'}
+              </span>
             </div>
-          </div>
-          <div className="bg-white rounded-2xl p-6 shadow-xl border-2 border-white hover:shadow-2xl transition-all">
-            <div className="text-4xl mb-3">⚡</div>
-            <div className="font-black text-lg text-[#2D2D2D]" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
-              {language === 'en' ? 'Up to 50% Off' : 'Giảm Đến 50%'}
-            </div>
-          </div>
-          <div className="bg-white rounded-2xl p-6 shadow-xl border-2 border-white hover:shadow-2xl transition-all">
-            <div className="text-4xl mb-3">📱</div>
-            <div className="font-black text-lg text-[#2D2D2D]" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
-              {language === 'en' ? 'Book in Seconds' : 'Đặt Trong Giây'}
-            </div>
-          </div>
-        </div>
 
-        {/* Secondary headline */}
-        <p className="text-xl md:text-2xl mb-8 text-[#2D2D2D]" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
-          {language === 'en' 
-            ? 'Download ROLL and start exploring Saigon\'s hidden dining potential.'
-            : 'Tải ROLL và bắt đầu khám phá tiềm năng ẩm thực ẩn của Sài Gòn.'}
-        </p>
+            {/* Main headline - refined */}
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 text-[#2D2D2D] leading-tight" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
+              {language === 'en' ? (
+                <>
+                  Suggest Your<br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FCE482] to-[#F9DB4A]">Favorite Spot</span>
+                </>
+              ) : (
+                <>
+                  Gợi Ý<br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FCE482] to-[#F9DB4A]">Nhà Hàng Yêu Thích</span>
+                </>
+              )}
+            </h2>
 
-        {/* App Store Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-          {/* Apple App Store */}
-          <button className="w-full sm:w-auto bg-[#2D2D2D] text-white px-8 py-4 rounded-2xl flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 group">
-            <div className="w-10 h-10 flex items-center justify-center">
-              <svg viewBox="0 0 24 24" fill="white" className="w-8 h-8">
-                <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
-              </svg>
-            </div>
-            <div className="text-left">
-              <div className="text-xs opacity-80" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
-                {language === 'en' ? 'Download on the' : 'Tải về trên'}
-              </div>
-              <div className="text-xl font-black" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
-                App Store
-              </div>
-            </div>
-          </button>
+            {/* Subheadline - professional */}
+            <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
+              {language === 'en' 
+                ? 'Know a great restaurant in Saigon? Share it with us and help build the ultimate dining community.'
+                : 'Biết một nhà hàng tuyệt vời ở Sài Gòn? Chia sẻ với chúng tôi và cùng xây dựng cộng đồng ẩm thực tốt nhất.'}
+            </p>
 
-          {/* Google Play Store */}
-          <button className="w-full sm:w-auto bg-[#2D2D2D] text-white px-8 py-4 rounded-2xl flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 group">
-            <div className="w-10 h-10 flex items-center justify-center">
-              <svg viewBox="0 0 24 24" fill="white" className="w-8 h-8">
-                <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
-              </svg>
+            {/* Benefits */}
+            <div className="space-y-4 mb-10">
+              {[
+                { en: 'Exclusive early access to new deals', vi: 'Truy cập sớm vào deal mới' },
+                { en: 'Support local restaurants you love', vi: 'Hỗ trợ nhà hàng địa phương bạn yêu thích' },
+                { en: 'Shape ROLL\'s restaurant network', vi: 'Định hình mạng lưới nhà hàng của ROLL' }
+              ].map((item, index) => (
+                <motion.div 
+                  key={index} 
+                  className="flex items-start gap-3"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
+                >
+                  <CheckCircle className="w-6 h-6 text-[#22C55E] flex-shrink-0 mt-0.5" strokeWidth={2.5} />
+                  <span className="text-base md:text-lg text-[#2D2D2D] font-black" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
+                    {language === 'en' ? item.en : item.vi}
+                  </span>
+                </motion.div>
+              ))}
             </div>
-            <div className="text-left">
-              <div className="text-xs opacity-80" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
-                {language === 'en' ? 'GET IT ON' : 'Tải về trên'}
-              </div>
-              <div className="text-xl font-black" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
-                Google Play
-              </div>
+          </motion.div>
+
+          {/* Right - Restaurant Suggestion Form */}
+          <motion.div 
+            className="relative"
+            initial={{ opacity: 0, x: 50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+          >
+            {/* Glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#FCE482] to-[#F9DB4A] opacity-10 blur-3xl rounded-3xl"></div>
+            
+            {/* Form Card */}
+            <div className="relative bg-white rounded-3xl p-8 shadow-2xl border-2 border-gray-100">
+              {isSubmitted ? (
+                /* Success State */
+                <motion.div
+                  className="text-center py-12"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <div className="w-20 h-20 bg-gradient-to-br from-[#22C55E] to-[#4ADE80] rounded-full flex items-center justify-center mx-auto mb-6">
+                    <CheckCircle className="w-12 h-12 text-white" strokeWidth={2.5} />
+                  </div>
+                  <h3 className="text-3xl font-black text-[#2D2D2D] mb-4" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
+                    {language === 'en' ? 'Thank You!' : 'Cảm Ơn Bạn!'}
+                  </h3>
+                  <p className="text-lg text-gray-600" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
+                    {language === 'en' 
+                      ? 'We\'ll review your suggestion and get back to you soon.'
+                      : 'Chúng tôi sẽ xem xét gợi ý của bạn và liên hệ sớm nhất.'}
+                  </p>
+                </motion.div>
+              ) : (
+                /* Form */
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Restaurant Name */}
+                  <div>
+                    <label className="flex items-center gap-2 text-sm font-black text-[#2D2D2D] mb-2" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
+                      <Utensils className="w-4 h-4 text-[#FCE482]" />
+                      {language === 'en' ? 'Restaurant Name' : 'Tên Nhà Hàng'}
+                      <span className="text-[#EF4444]">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="restaurantName"
+                      value={formData.restaurantName}
+                      onChange={handleChange}
+                      required
+                      placeholder={language === 'en' ? 'e.g., Phở Lệ' : 'vd: Phở Lệ'}
+                      className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#FCE482] focus:outline-none transition-colors font-black text-[#2D2D2D]"
+                      style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}
+                    />
+                  </div>
+
+                  {/* Location */}
+                  <div>
+                    <label className="flex items-center gap-2 text-sm font-black text-[#2D2D2D] mb-2" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
+                      <MapPin className="w-4 h-4 text-[#FCE482]" />
+                      {language === 'en' ? 'Location' : 'Vị Trí'}
+                      <span className="text-[#EF4444]">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="location"
+                      value={formData.location}
+                      onChange={handleChange}
+                      required
+                      placeholder={language === 'en' ? 'e.g., District 1, HCMC' : 'vd: Quận 1, TPHCM'}
+                      className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#FCE482] focus:outline-none transition-colors font-black text-[#2D2D2D]"
+                      style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}
+                    />
+                  </div>
+
+                  {/* Cuisine Type */}
+                  <div>
+                    <label className="flex items-center gap-2 text-sm font-black text-[#2D2D2D] mb-2" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
+                      <Star className="w-4 h-4 text-[#FCE482]" />
+                      {language === 'en' ? 'Cuisine Type' : 'Loại Món Ăn'}
+                    </label>
+                    <input
+                      type="text"
+                      name="cuisineType"
+                      value={formData.cuisineType}
+                      onChange={handleChange}
+                      placeholder={language === 'en' ? 'e.g., Vietnamese, Italian, Japanese' : 'vd: Việt Nam, Ý, Nhật Bản'}
+                      className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#FCE482] focus:outline-none transition-colors font-black text-[#2D2D2D]"
+                      style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}
+                    />
+                  </div>
+
+                  {/* Notes */}
+                  <div>
+                    <label className="flex items-center gap-2 text-sm font-black text-[#2D2D2D] mb-2" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
+                      <MessageSquare className="w-4 h-4 text-[#FCE482]" />
+                      {language === 'en' ? 'Why do you love this place?' : 'Tại sao bạn yêu thích nơi này?'}
+                    </label>
+                    <textarea
+                      name="notes"
+                      value={formData.notes}
+                      onChange={handleChange}
+                      rows={3}
+                      placeholder={language === 'en' ? 'Share what makes this restaurant special...' : 'Chia sẻ điều gì làm nhà hàng này đặc biệt...'}
+                      className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#FCE482] focus:outline-none transition-colors font-black text-[#2D2D2D] resize-none"
+                      style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}
+                    />
+                  </div>
+
+                  {/* Email (Optional) */}
+                  <div>
+                    <label className="flex items-center gap-2 text-sm font-black text-[#2D2D2D] mb-2" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
+                      <Mail className="w-4 h-4 text-[#FCE482]" />
+                      {language === 'en' ? 'Email (Optional)' : 'Email (Tùy chọn)'}
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder={language === 'en' ? 'Get updates on your suggestion' : 'Nhận cập nhật về gợi ý của bạn'}
+                      className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#FCE482] focus:outline-none transition-colors font-black text-[#2D2D2D]"
+                      style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}
+                    />
+                  </div>
+
+                  {/* Submit Button */}
+                  <motion.button
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-[#FCE482] to-[#F9DB4A] text-[#2D2D2D] px-8 py-4 rounded-xl font-black text-lg shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3"
+                    style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}
+                    whileHover={{ scale: 1.02, y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Send className="w-5 h-5" />
+                    {language === 'en' ? 'Submit Suggestion' : 'Gửi Gợi Ý'}
+                  </motion.button>
+
+                  {/* Privacy Note */}
+                  <p className="text-xs text-gray-500 text-center" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
+                    {language === 'en' 
+                      ? 'Your information is safe with us. We\'ll only use it to improve ROLL.'
+                      : 'Thông tin của bạn được bảo mật. Chúng tôi chỉ dùng để cải thiện ROLL.'}
+                  </p>
+                </form>
+              )}
             </div>
-          </button>
-        </div>
-
-        {/* Trust micro-copy */}
-        <p className="text-sm opacity-70 text-[#2D2D2D] mb-8" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
-          {language === 'en' 
-            ? '✓ Free to download  •  ✓ No signup fees  •  ✓ Instant access to deals'
-            : '✓ Miễn phí tải  •  ✓ Không phí đăng ký  •  ✓ Truy cập deal ngay lập tức'}
-        </p>
-
-        {/* Social proof badges */}
-        <div className="flex items-center justify-center gap-8 flex-wrap">
-          <div className="flex items-center gap-2">
-            <Star className="w-5 h-5 text-[#EF8E4C]" fill="#EF8E4C" />
-            <Star className="w-5 h-5 text-[#EF8E4C]" fill="#EF8E4C" />
-            <Star className="w-5 h-5 text-[#EF8E4C]" fill="#EF8E4C" />
-            <Star className="w-5 h-5 text-[#EF8E4C]" fill="#EF8E4C" />
-            <Star className="w-5 h-5 text-[#EF8E4C]" fill="#EF8E4C" />
-            <span className="ml-2 font-black text-[#2D2D2D]" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
-              4.8/5
-            </span>
-          </div>
-          <div className="font-black text-[#2D2D2D]" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
-            50K+ {language === 'en' ? 'Downloads' : 'Lượt Tải'}
-          </div>
-          <div className="font-black text-[#2D2D2D]" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
-            {language === 'en' ? 'Featured in District 1 & 3' : 'Nổi bật tại Quận 1 & 3'}
-          </div>
-        </div>
-
-        {/* Bottom energy boost */}
-        <div className="mt-16">
-          <div className="inline-block bg-white text-[#2D2D2D] px-8 py-4 rounded-2xl shadow-2xl border-4 border-[#EF8E4C] transform -rotate-2 hover:rotate-0 transition-transform">
-            <div className="text-3xl md:text-4xl font-black" style={{ fontFamily: 'Bahnschrift, Arial, sans-serif' }}>
-              🎯 {language === 'en' ? 'Your First Deal Awaits' : 'Deal Đầu Tiên Đang Chờ Bạn'}
-            </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>
