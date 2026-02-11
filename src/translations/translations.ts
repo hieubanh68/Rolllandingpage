@@ -174,7 +174,7 @@ export const translations: Record<Language, Translations> = {
       testimonial2: {
         name: 'David Tran',
         location: 'Thao Dien',
-        message: "I've saved over 2M VND this month dining at places I wouldn't normally try.",
+        message: "I've saved over 2M VND this month dining at places I wouldn\'t normally try.",
         restaurant: 'Steakhouse 79',
       },
       testimonial3: {
@@ -230,7 +230,7 @@ export const translations: Record<Language, Translations> = {
         headline: "No POS Integration? No Problem.",
         step1: "Join: Setup your profile in 5 minutes.",
         step2: "Place Your QR: Put your custom ROLL QR code on tables or at the counter.",
-        step3: "Scan & Grow: Staff scans the customer's phone to apply deals or add loyalty stamps.",
+        step3: "Scan & Grow: Staff scans the customer\'s phone to apply deals or add loyalty stamps.",
         promise: "If your staff can use Zalo, they can use ROLL. Zero training, zero hardware costs."
       },
       footerCTA: {
